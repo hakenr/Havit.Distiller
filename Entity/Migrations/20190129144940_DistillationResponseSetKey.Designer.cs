@@ -4,14 +4,16 @@ using Havit.Distiller.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Havit.Distiller.Entity.Migrations
 {
     [DbContext(typeof(DistillerDbContext))]
-    partial class DistillerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190129144940_DistillationResponseSetKey")]
+    partial class DistillationResponseSetKey
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -90,7 +92,7 @@ namespace Havit.Distiller.Entity.Migrations
                     b.Property<string>("Key")
                         .HasMaxLength(100);
 
-                    b.Property<int?>("ScopeId");
+                    b.Property<int>("ScopeId");
 
                     b.Property<string>("Submitter")
                         .HasMaxLength(100);
@@ -170,7 +172,8 @@ namespace Havit.Distiller.Entity.Migrations
                 {
                     b.HasOne("Havit.Distiller.Model.DistillationScope", "Scope")
                         .WithMany()
-                        .HasForeignKey("ScopeId");
+                        .HasForeignKey("ScopeId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }

@@ -10,18 +10,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Havit.Data.EntityFrameworkCore;
-using Havit.Data.EntityFrameworkCore.Patterns.DataSources;
-using Havit.Data.EntityFrameworkCore.Patterns.SoftDeletes;
+using Havit.Data.Patterns.DataSources;
 
-namespace Havit.Distiller.DataLayer.DataSources.Security
+namespace Havit.Distiller.DataLayer.DataSources
 {
 	[System.CodeDom.Compiler.GeneratedCode("Havit.Data.EntityFrameworkCore.CodeGenerator", "1.0")]
-	public partial class LoginAccountDbDataSource : DbDataSource<Havit.Distiller.Model.Security.LoginAccount>, ILoginAccountDataSource
+	public interface IDistillationResponseSetDataSource : IDataSource<Havit.Distiller.Model.DistillationResponseSet>
 	{
-		public LoginAccountDbDataSource(IDbContext dbContext, ISoftDeleteManager softDeleteManager)
-			: base(dbContext, softDeleteManager)
-		{
-		}
 	}
 }

@@ -1,0 +1,45 @@
+﻿@using Havit.Distiller.Shared
+@page "/responsesubmission"
+@inherits DistillationResponseSubmissionModel
+
+<h1>Response Submission</h1>
+
+@if (ViewModel == null)
+{
+	<p><em>Loading...</em></p>
+}
+else
+{
+	<form>
+		<div class="form-group">
+			<label for="responseSetKey">ResponseSet Key</label>
+			<input type="text" class="form-control" id="responseSetKey" placeholder="ResponseSet Key" value="@ResponseSetKey" onchange=@(newValue => OnResponseSetKeyChange(newValue)) />
+			<small class="form-text text-muted">By entering a ResponseSet Key you can return to your previous response and change it.</small>
+		</div>
+	</form>
+
+	<h2>Response Items</h2>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Item</th>
+				<th>Response</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in ViewModel.DistillationItems)
+			{
+				<tr>
+					<td>@item.Text</td>
+					<td>
+						<div class="btn-group" role="group">
+							<button type="button" class='@(GetVote(item.Id) == 0 ? "btn btn-primary" : "btn btn-light")' onclick=@(async () => await @Vote(item.Id, 0))>Nevybráno</button>
+							<button type="button" class='@(GetVote(item.Id) == 1 ? "btn btn-primary" : "btn btn-light")' onclick=@(async () => await @Vote(item.Id, 1))>Zvoleno</button>
+							<button type="button" class='@(GetVote(item.Id) == 2 ? "btn btn-primary" : "btn btn-light")' onclick=@(async () => await @Vote(item.Id, 2))>Zvoleno s důrazem</button>
+						</div>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}

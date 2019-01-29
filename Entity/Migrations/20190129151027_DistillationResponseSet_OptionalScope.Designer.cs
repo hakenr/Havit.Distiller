@@ -4,14 +4,16 @@ using Havit.Distiller.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Havit.Distiller.Entity.Migrations
 {
     [DbContext(typeof(DistillerDbContext))]
-    partial class DistillerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190129151027_DistillationResponseSet_OptionalScope")]
+    partial class DistillationResponseSet_OptionalScope
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

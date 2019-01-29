@@ -14,12 +14,12 @@ using Havit.Data.EntityFrameworkCore;
 using Havit.Data.EntityFrameworkCore.Patterns.DataSources;
 using Havit.Data.EntityFrameworkCore.Patterns.SoftDeletes;
 
-namespace Havit.Distiller.DataLayer.DataSources.Security
+namespace Havit.Distiller.DataLayer.DataSources
 {
 	[System.CodeDom.Compiler.GeneratedCode("Havit.Data.EntityFrameworkCore.CodeGenerator", "1.0")]
-	public partial class LoginAccountDbDataSource : DbDataSource<Havit.Distiller.Model.Security.LoginAccount>, ILoginAccountDataSource
+	public partial class DistillationScopeDbDataSource : DbDataSource<Havit.Distiller.Model.DistillationScope>, IDistillationScopeDataSource
 	{
-		public LoginAccountDbDataSource(IDbContext dbContext, ISoftDeleteManager softDeleteManager)
+		public DistillationScopeDbDataSource(IDbContext dbContext, ISoftDeleteManager softDeleteManager)
 			: base(dbContext, softDeleteManager)
 		{
 		}

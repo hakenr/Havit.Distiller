@@ -14,6 +14,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\DataLayer\DataLayer.csproj" />
+		<ProjectReference Include="..\Havit.Distiller.Shared\Havit.Distiller.Shared.csproj" />
 		<ProjectReference Include="..\Services\Services.csproj" />
 	</ItemGroup>
 </Project>

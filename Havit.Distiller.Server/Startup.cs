@@ -57,7 +57,7 @@ namespace Havit.Distiller.WebAPI
 
 
 			services.AddAuthorization();
-            services.AddCustomizedAuthentication(configuration); // musí být voláno až po AddMvc, jinak nejsou volány IClaimsTransformation.
+            //services.AddCustomizedAuthentication(configuration); // musí být voláno až po AddMvc, jinak nejsou volány IClaimsTransformation.
 	        services.AddCustomizedMailing(configuration);
 	        
 			services.AddExceptionMonitoring(configuration);
@@ -86,7 +86,7 @@ namespace Havit.Distiller.WebAPI
 
 			app.UseCustomizedCors(corsOptions);
             app.UseStaticFiles();
-            app.UseAuthentication();
+            //app.UseAuthentication();
 
 	        app.UseRequestLocalization();
             app.UseMvc();

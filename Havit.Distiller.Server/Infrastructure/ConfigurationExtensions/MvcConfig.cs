@@ -30,10 +30,10 @@ namespace Havit.Distiller.WebAPI.Infrastructure.ConfigurationExtensions
 				.AddMvc(options =>
 				{
 					// TODO: Security policy
-					var defaultPolicy = new AuthorizationPolicyBuilder(AuthenticationConfig.GetAuthenticationSchemes(configuration))
-						.RequireAuthenticatedUser()
-						.Build();
-					options.Filters.Add(new AuthorizeFilter(defaultPolicy));
+					//var defaultPolicy = new AuthorizationPolicyBuilder(AuthenticationConfig.GetAuthenticationSchemes(configuration))
+					//	.RequireAuthenticatedUser()
+					//	.Build();
+					//options.Filters.Add(new AuthorizeFilter(defaultPolicy));
 					options.Filters.Add(new ValidateModelAttribute { ResultSelector = ValidationErrorModel.FromModelState() });
 					options.Filters.Add(new ErrorToJsonFilter(c =>
 					{

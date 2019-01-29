@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<AssemblyName>Havit.Distiller.Model</AssemblyName>
+		<RootNamespace>Havit.Distiller.Model</RootNamespace>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Havit" Version="1.8.5" />
+		<PackageReference Include="Havit.Data.EntityFrameworkCore.Abstractions" Version="1.8.1" />
+		<PackageReference Include="Havit.Model" Version="1.8.4" />
+		<PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
+	</ItemGroup>
+
+</Project>

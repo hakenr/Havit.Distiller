@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<AssemblyName>Havit.Distiller.Services</AssemblyName>
+		<RootNamespace>Havit.Distiller.Services</RootNamespace>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Havit.Extensions.DependencyInjection.Abstractions" Version="1.7.3" />
+		<PackageReference Include="Havit.Services" Version="1.8.4" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\DataLayer\DataLayer.csproj" />
+	</ItemGroup>
+</Project>	 

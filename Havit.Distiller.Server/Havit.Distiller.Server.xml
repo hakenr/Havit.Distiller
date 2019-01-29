@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Havit.Distiller.Server</name>
+    </assembly>
+    <members>
+        <member name="T:Havit.Distiller.WebAPI.Controllers.SystemController">
+            <summary>
+            Controller pro systémové akce.
+            </summary>
+        </member>
+        <member name="M:Havit.Distiller.WebAPI.Controllers.SystemController.SeedData(System.String)">
+            <summary>
+            Provede seedování dat zadaného profilu.
+            Název profilu nemá obsahovat "Profile", vyhledává se dle názvu typu bez ohledu na velikost písmen.
+            </summary>
+            <param name="profile">Název profilu k seedování.</param>
+        </member>
+        <member name="T:Havit.Distiller.WebAPI.Infrastructure.ConfigurationExtensions.ValidationErrorModel">
+            <summary>
+            Třída popisuje validační chybu WebAPI.
+            </summary>
+        </member>
+        <member name="P:Havit.Distiller.WebAPI.Infrastructure.ConfigurationExtensions.ValidationErrorModel.StatusCode">
+            <summary>
+            Status code.
+            </summary>
+        </member>
+        <member name="P:Havit.Distiller.WebAPI.Infrastructure.ConfigurationExtensions.ValidationErrorModel.Message">
+            <summary>
+            Text chyby. Použito pro chyby vyhozené "ručně" výjimkou OperationFailedException (ev. jiné).
+            Null hodnota není do JSON serializována.
+            Je vzájemně výlučné s Errors. Buď je jedno, nebo druhé.
+            </summary>
+        </member>
+        <member name="P:Havit.Distiller.WebAPI.Infrastructure.ConfigurationExtensions.ValidationErrorModel.StackTrace">
+            <summary>
+            Stack trace výjimky. Použito pro chyby vyhozené "ručně" výjimkou OperationFailedException (ev. jiné). Jen pro aplikaci kompilovanou v DEBUGu!
+            </summary>
+        </member>
+        <member name="M:Havit.Distiller.WebAPI.Infrastructure.ConfigurationExtensions.ValidationErrorModel.#ctor(System.Int32)">
+            <summary>
+            Konstruktor.
+            </summary>
+        </member>
+        <member name="P:Havit.Distiller.WebAPI.Infrastructure.ConfigurationExtensions.ValidationErrorModel.Errors">
+            <summary>
+            Chyby validace modelu.
+            Null hodnota není do JSON serializována.
+            Je vzájemně výlučné s Message. Buď je jedno, nebo druhé.
+            </summary>
+        </member>
+        <member name="M:Havit.Distiller.WebAPI.Infrastructure.ConfigurationExtensions.ValidationErrorModel.FromException(System.Int32)">
+            <summary>
+            Vrací ValidationErrorModel pro výjimku.
+            </summary>
+        </member>
+        <member name="M:Havit.Distiller.WebAPI.Infrastructure.ConfigurationExtensions.ValidationErrorModel.FromModelState">
+            <summary>
+            Vrací ValidationErrorModel pro ModelState.
+            </summary>
+        </member>
+        <member name="T:Havit.Distiller.WebAPI.Infrastructure.ModelValidation.ValidateModelAttribute">
+            <summary>
+            Pokud není ModelState validní, vrací odpověď (ValidationResultModel) bez dalšího zpracování action.
+            </summary>
+            <remarks>
+            Vracené fields jsou PascalCase - vychází z pojmenování v .NETu, nikoliv z pojmenování použitého JSON formatterem.
+            </remarks>
+        </member>
+        <member name="T:Havit.Distiller.WebAPI.Infrastructure.Security.ApplicationAuthenticationService">
+            <summary>
+            Poskytuje uživatele z HttpContextu.
+            </summary>
+        </member>
+        <member name="M:Havit.Distiller.WebAPI.Infrastructure.Security.UserContextInfoBuilder.GetUserContextInfo(System.Security.Claims.ClaimsPrincipal)">
+            <summary>
+            Vrací informace o přihlášeném uživateli.
+            Pro nepřihlášeného uživatele vrací null.
+            </summary>
+        </member>
+        <member name="M:Havit.Distiller.WebAPI.Infrastructure.WindsorCastleConfiguration.CreateWindsorContainer(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Returns new Castle Windsor container configured for WebAPI.
+            </summary>
+        </member>
+        <member name="M:Havit.Distiller.WebAPI.Infrastructure.WindsorCastleConfiguration.AddCustomizedServiceProvider(Microsoft.Extensions.DependencyInjection.IServiceCollection,Castle.Windsor.IWindsorContainer)">
+            <summary>
+            Returns service provider wrapping Castle Windsor container.
+            </summary>
+        </member>
+        <member name="M:Havit.Distiller.WebAPI.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Configure services.
+            </summary>
+        </member>
+        <member name="M:Havit.Distiller.WebAPI.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment,Microsoft.Extensions.Options.IOptions{Havit.Distiller.WebAPI.Infrastructure.Cors.CorsOptions})">
+            <summary>
+            Configure middleware.
+            </summary>
+        </member>
+    </members>
+</doc>

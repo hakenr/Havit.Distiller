@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<AssemblyName>Havit.Distiller.DataLayer</AssemblyName>
+		<RootNamespace>Havit.Distiller.DataLayer</RootNamespace>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Havit.Data.EntityFrameworkCore.CodeGenerator" Version="1.8.7" />
+		<PackageReference Include="Havit.Data.EntityFrameworkCore.Patterns" Version="1.8.16" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Entity\Entity.csproj" />
+		<ProjectReference Include="..\Model\Model.csproj" />
+	</ItemGroup>
+
+</Project>

@@ -10,13 +10,27 @@
 }
 else
 {
-	<form>
-		<div class="form-group">
-			<label for="responseSetKey">ResponseSet Key</label>
-			<input type="text" class="form-control" id="responseSetKey" placeholder="ResponseSet Key" value="@ResponseSetKey" onchange=@(newValue => OnResponseSetKeyChange(newValue)) />
-			<small class="form-text text-muted">By entering a ResponseSet Key you can return to your previous response and change it.</small>
-		</div>
-	</form>
+	<div class="form-group">
+		<label for="responseSetKey">ResponseSet Key*</label>
+		<input type="text" class="form-control" id="responseSetKey" placeholder="ResponseSet Key" value="@ResponseSetKey" onchange=@(args => OnResponseSetKeyChange(args)) />
+		<small class="form-text text-muted">By entering a ResponseSet Key you can return to your previous response and change it.</small>
+	</div>
+
+	<br />
+	<hr />
+
+	<h2>Response Header</h2>
+	<div class="form-group">
+		<label for="submitter">Submitter</label>
+		<input type="text" class="form-control" id="submitter" placeholder="Your identification (optional)" bind="@Header.Submitter" />
+	</div>
+	<div class="form-group">
+		<label for="responseSetKey">Comments</label>
+		<textarea class="form-control" id="comments" placeholder="Missing a value? Any other comments?" bind="@Header.Comments" rows="5" />
+	</div>
+	<button type="submit" class="btn btn-primary" onclick="@OnHeaderSubmitClick">Save Header</button>
+
+	<hr />
 
 	<h2>Response Items</h2>
 	<table class="table">
@@ -41,5 +55,7 @@ else
 				</tr>
 			}
 		</tbody>
+
+		Votes: @ResponseItemsByDistillationItemId.Count / @ViewModel.DistillationItems.Count
 	</table>
 }

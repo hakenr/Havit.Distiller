@@ -33,7 +33,7 @@ namespace Havit.Distiller.Facades
 			this.unitOfWork = unitOfWork;
 		}
 
-		public DistillationSubmissionVM GetDistillationSubmissionData(string responseSetKey = null)
+		public DistillationResponseSetDetailVM GetDistillationResponseSetDetail(string responseSetKey = null)
 		{
 			DistillationResponseSet responseSet = null;
 
@@ -47,7 +47,7 @@ namespace Havit.Distiller.Facades
 				}
 			}
 
-			return new DistillationSubmissionVM()
+			return new DistillationResponseSetDetailVM()
 			{
 				//Scopes =
 				//{
@@ -58,6 +58,11 @@ namespace Havit.Distiller.Facades
 				//	new DistillationScopeVM() { Id = 5, Name = "Supportive team" },
 				//	new DistillationScopeVM() { Id = 6, Name = "Management" },
 				//},
+				ResponseSetHeader = new DistillationResponseSetHeaderDto()
+				{
+					Comments = responseSet?.Comments,
+					Submitter = responseSet?.Submitter,
+				},
 				DistillationItems = distillationItemRepository.GetAll().OrderBy(i => i.Text).Select(i => new DistillationItemVM()
 				{
 					Id = i.Id,
@@ -73,30 +78,36 @@ namespace Havit.Distiller.Facades
 			};
 		}
 
-		public DistillationResponseSetDto GetResponseSet(string responseSetKey)
-		{
-			Contract.Requires<ArgumentException>(!String.IsNullOrWhiteSpace(responseSetKey), nameof(responseSetKey));
-
-			var responseSet = distillationResponseSetRepository.GetByKey(responseSetKey);
-
-			return new DistillationResponseSetDto()
-			{
-				Comments = responseSet.Comments,
-				Items = responseSet.Items.Select(i => new DistillationResponseItemDto()
-				{
-					DistillationItemId = i.DistillationItemId,
-					ResponseValue = i.ResponseValue
-				})
-				.ToList()
-			};
-		}
-
 		public void SubmitResponseSetItem(string responseSetKey, DistillationResponseItemDto responseItemIM)
 		{
 			Contract.Requires<ArgumentNullException>(responseItemIM != null, nameof(responseItemIM));
 			Contract.Requires<ArgumentException>(!String.IsNullOrWhiteSpace(responseSetKey), nameof(responseSetKey));
 			Contract.Requires<ArgumentException>(responseItemIM.ResponseValue != null, nameof(responseItemIM.ResponseValue));
 
+			DistillationResponseSet responseSet = GetOrCreateResponseSet(responseSetKey);
+
+			var responseItem = responseSet.Items.SingleOrDefault(i => i.DistillationItemId == responseItemIM.DistillationItemId);
+			if (responseItem == null)
+			{
+				responseItem = new DistillationResponseItem()
+				{
+					ResponseSet = responseSet,
+					DistillationItemId = responseItemIM.DistillationItemId
+				};
+				unitOfWork.AddForInsert(responseItem);
+			}
+			else
+			{
+				unitOfWork.AddForUpdate(responseItem);
+			}
+
+			responseItem.ResponseValue = responseItemIM.ResponseValue.Value;
+
+			unitOfWork.Commit();
+		}
+
+		private DistillationResponseSet GetOrCreateResponseSet(string responseSetKey)
+		{
 			var responseSet = distillationResponseSetRepository.GetByKey(responseSetKey);
 
 			if (responseSet != null)
@@ -115,22 +126,17 @@ namespace Havit.Distiller.Facades
 				unitOfWork.AddForInsert(responseSet);
 			}
 
-			var responseItem = responseSet.Items.SingleOrDefault(i => i.DistillationItemId == responseItemIM.DistillationItemId);
-			if (responseItem == null)
-			{
-				responseItem = new DistillationResponseItem()
-				{
-					ResponseSet = responseSet,
-					DistillationItemId = responseItemIM.DistillationItemId
-				};
-				unitOfWork.AddForInsert(responseItem);
-			}
-			else
-			{
-				unitOfWork.AddForUpdate(responseItem);
-			}
+			return responseSet;
+		}
 
-			responseItem.ResponseValue = responseItemIM.ResponseValue.Value;
+		public void UpdateResponseSetHeader(string responseSetKey, DistillationResponseSetHeaderDto responseSetHeaderIM)
+		{
+			Contract.Requires<ArgumentNullException>(responseSetHeaderIM != null, nameof(responseSetHeaderIM));
+
+			DistillationResponseSet responseSet = GetOrCreateResponseSet(responseSetKey);
+
+			responseSet.Comments = responseSetHeaderIM.Comments;
+			responseSet.Submitter = responseSetHeaderIM.Submitter;
 
 			unitOfWork.Commit();
 		}

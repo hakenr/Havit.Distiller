@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace Havit.Distiller.Shared
 {
-    public class DistillationResponseSetDto
+    public class DistillationResponseSetHeaderDto
     {
 		public string Comments { get; set; }
-
-		public List<DistillationResponseItemDto> Items { get; set; } = new List<DistillationResponseItemDto>();
+		public string Submitter { get; set; }
 	}
 }

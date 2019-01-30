@@ -20,16 +20,10 @@ namespace Havit.Distiller.Server.Controllers
 		}
 
 		[HttpGet("/api/distillation/responseset/{responseSetKey}")]
-		public DistillationSubmissionVM GetDistillationSubmissionData(string responseSetKey)
+		public DistillationResponseSetDetailVM GetDistillationSubmissionData(string responseSetKey)
 		{
-			return distillationFacade.GetDistillationSubmissionData(responseSetKey);
+			return distillationFacade.GetDistillationResponseSetDetail(responseSetKey);
 		}
-
-		//[HttpGet("api/distillation/responseset/{responseSetKey}")]
-		//public DistillationResponseSetDto GetResponseSet(string responseSetKey)
-		//{
-		//	return distillationFacade.GetResponseSet(responseSetKey);
-		//}
 
 		[HttpPost("api/distillation/responseset/{responseSetKey}/items/{distillationItemId:int}")]
 		public void SubmitResponseSetItem(string responseSetKey, int distillationItemId, DistillationResponseItemDto responseItemIM)
@@ -38,6 +32,14 @@ namespace Havit.Distiller.Server.Controllers
 			Contract.Requires<ArgumentException>(responseItemIM.DistillationItemId == distillationItemId, nameof(distillationItemId));
 
 			distillationFacade.SubmitResponseSetItem(responseSetKey, responseItemIM);
+		}
+
+		[HttpPost("api/distillation/responseset/{responseSetKey}/header")]
+		public void SubmitResponseSetItem(string responseSetKey, DistillationResponseSetHeaderDto responseSetHeaderIM)
+		{
+			Contract.Requires<ArgumentNullException>(responseSetHeaderIM != null, nameof(responseSetHeaderIM));
+
+			distillationFacade.UpdateResponseSetHeader(responseSetKey, responseSetHeaderIM);
 		}
 
 	}

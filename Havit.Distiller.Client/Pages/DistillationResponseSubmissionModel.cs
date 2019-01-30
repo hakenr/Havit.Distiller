@@ -15,9 +15,10 @@ namespace Havit.Distiller.Client.Pages
 		[Inject]
 		public HttpClient Http { get; set; }
 
-		protected DistillationSubmissionVM ViewModel { get; set; }
+		protected DistillationResponseSetDetailVM ViewModel { get; set; }
 		protected Dictionary<int, DistillationResponseItemDto> ResponseItemsByDistillationItemId { get; set; }
 		protected string ResponseSetKey { get; set; }
+		protected DistillationResponseSetHeaderDto Header { get; set; }
 
 		protected override async Task OnInitAsync()
 		{
@@ -28,8 +29,9 @@ namespace Havit.Distiller.Client.Pages
 
 		private async Task LoadViewModel()
 		{
-			ViewModel = await Http.GetJsonAsync<DistillationSubmissionVM>($"/api/distillation/responseset/{ResponseSetKey}");
+			ViewModel = await Http.GetJsonAsync<DistillationResponseSetDetailVM>($"/api/distillation/responseset/{ResponseSetKey}");
 
+			Header = ViewModel.ResponseSetHeader ?? new DistillationResponseSetHeaderDto();
 			ResponseItemsByDistillationItemId = ViewModel.ResponseItems.ToDictionary(i => i.DistillationItemId);
 		}
 
@@ -52,8 +54,6 @@ namespace Havit.Distiller.Client.Pages
 			}
 
 			await Http.PostJsonAsync($"/api/distillation/responseset/{ResponseSetKey}/items/{itemId}", item);
-
-			//StateHasChanged();
 		}
 
 		protected int? GetVote(int itemId)
@@ -68,6 +68,11 @@ namespace Havit.Distiller.Client.Pages
 			this.ResponseSetKey = args.Value.ToString();
 
 			await LoadViewModel();
+		}
+
+		protected async Task OnHeaderSubmitClick()
+		{
+			await Http.PostJsonAsync($"/api/distillation/responseset/{ResponseSetKey}/header", this.Header);
 		}
 	}
 }

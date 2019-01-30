@@ -6,6 +6,7 @@
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
 		<NoWarn>1701;1702;1705;1591</NoWarn>
+		<UserSecretsId>9a121ede-c7a1-42b6-9626-90e7457a6aef</UserSecretsId>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

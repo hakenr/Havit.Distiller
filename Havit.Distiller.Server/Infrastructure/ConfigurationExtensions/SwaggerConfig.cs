@@ -15,7 +15,7 @@ namespace Havit.Distiller.WebAPI.Infrastructure.ConfigurationExtensions
             {
                 c.SwaggerDoc("current", new Info { Title = "Distiller" });
                 c.CustomSchemaIds(type => type.FullName);
-                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "Havit.Distiller.WebAPI.xml"));
+                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "Havit.Distiller.Server.xml"));
                 c.DescribeAllEnumsAsStrings();
                 c.OperationFilter<FileUploadOperation>(); //Register File Upload Operation Filter
             });

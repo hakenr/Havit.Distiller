@@ -30,7 +30,7 @@ namespace Havit.Distiller.Facades.System
         /// </summary>        
         public void SeedDataProfile(string profileName)
         {
-			applicationAuthorizationService.VerifyCurrentUserAuthorization(Operations.SystemAdministration);
+			//applicationAuthorizationService.VerifyCurrentUserAuthorization(Operations.SystemAdministration);
 
 			string typeName = profileName + "Profile";
 			Type type = typeof(CoreProfile).Assembly.GetTypes().FirstOrDefault(item => String.Equals(item.Name, typeName, StringComparison.InvariantCultureIgnoreCase));

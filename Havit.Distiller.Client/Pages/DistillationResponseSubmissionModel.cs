@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Cloudcrate.AspNetCore.Blazor.Browser.Storage;
 using Havit.Distiller.Shared;
 using Microsoft.AspNetCore.Blazor;
 using Microsoft.AspNetCore.Blazor.Components;
@@ -15,6 +16,9 @@ namespace Havit.Distiller.Client.Pages
 		[Inject]
 		public HttpClient Http { get; set; }
 
+		[Inject]
+		public LocalStorage LocalStorage { get; set; }
+
 		protected DistillationResponseSetDetailVM ViewModel { get; set; }
 		protected Dictionary<int, DistillationResponseItemDto> ResponseItemsByDistillationItemId { get; set; }
 		protected string ResponseSetKey { get; set; }
@@ -22,7 +26,12 @@ namespace Havit.Distiller.Client.Pages
 
 		protected override async Task OnInitAsync()
 		{
-			ResponseSetKey = Guid.NewGuid().ToString();
+			if (LocalStorage["ResponseSetKey"] is null)
+			{
+				LocalStorage["ResponseSetKey"] = Guid.NewGuid().ToString();
+			}
+
+			ResponseSetKey = LocalStorage["ResponseSetKey"];
 
 			await LoadViewModel();
 		}
@@ -65,6 +74,7 @@ namespace Havit.Distiller.Client.Pages
 
 		protected async Task OnResponseSetKeyChange(UIChangeEventArgs args)
 		{
+			LocalStorage["ResponseSetKey"] = args.Value.ToString();
 			this.ResponseSetKey = args.Value.ToString();
 
 			await LoadViewModel();
